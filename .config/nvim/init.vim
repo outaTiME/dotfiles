@@ -1,6 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
@@ -14,12 +13,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'mhinz/vim-signify'
 " Plug 'RRethy/vim-illuminate'
-" Plug 'chriskempson/base16-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'svermeulen/vim-easyclip'
-" Plug 'ayu-theme/ayu-vim'
 
 call plug#end()
 
@@ -69,6 +65,12 @@ nnoremap <Leader>L :Lines<CR>
 " COC {{
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -117,7 +119,7 @@ let g:ale_fixers = {
   \ 'javascript': ['eslint'],
   \ }
 let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'always'
+"let g:ale_lint_on_text_changed = 'always'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}
@@ -134,19 +136,12 @@ let g:onedark_color_overrides = {
   \ "black": { "gui": "#000000", "cterm": "0", "cterm16": "0" }
   \ }
 colorscheme onedark
-" color dracula
-" let g:lightline = {
-"   \ 'colorscheme': 'onedark'
-"   \ }
 let g:airline_theme='onedark'
-" let g:airline_theme='powerlineish'
-" let ayucolor="dark"
-" colorscheme ayu
-" let g:airline_theme='ayu'
 " }}
 
 " Airline {{
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 "}}
 
 " Behavior {{
@@ -199,4 +194,10 @@ set scrolloff=5
 " Keep a minimum of 5 columns left of the cursor.
 set sidescrolloff=5
 set autoread
+" Better display for messages
+" set cmdheight=2
+" You will have bad experience for diagnostic messages when it's default 4000.
+" set updatetime=300
+" don't give |ins-completion-menu| messages.
+" set shortmess+=c
 " }}
