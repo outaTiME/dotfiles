@@ -7,18 +7,19 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'mhinz/vim-signify'
-Plug 'RRethy/vim-illuminate'
+" Plug 'RRethy/vim-illuminate'
 " Plug 'chriskempson/base16-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'svermeulen/vim-easyclip'
+" Plug 'ayu-theme/ayu-vim'
 
 call plug#end()
 
@@ -126,16 +127,22 @@ let g:NERDSpaceDelims = 1
 " }}
 
 " Theme {{
-" set termguicolors
-" let g:onedark_terminal_italics = 1
-" let g:onedark_hide_endofbuffer = 1
-" colorscheme onedark
+set termguicolors
+let g:onedark_terminal_italics = 1
+let g:onedark_hide_endofbuffer = 1
+let g:onedark_color_overrides = {
+  \ "black": { "gui": "#000000", "cterm": "0", "cterm16": "0" }
+  \ }
+colorscheme onedark
 " color dracula
 " let g:lightline = {
 "   \ 'colorscheme': 'onedark'
 "   \ }
-" let g:airline_theme='onedark''
-let g:airline_theme='powerlineish'
+let g:airline_theme='onedark'
+" let g:airline_theme='powerlineish'
+" let ayucolor="dark"
+" colorscheme ayu
+" let g:airline_theme='ayu'
 " }}
 
 " Airline {{
@@ -144,7 +151,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Behavior {{
 " Enable line numbers
-" set number
+set number
 " Don't dispay mode in command line (airilne already shows it)
 set noshowmode
 " More natural split opening.
@@ -162,8 +169,8 @@ set noswapfile
 set nobackup
 set nowritebackup
 " Show Invisibles
-" set list
-" set listchars=tab:→→,eol:¬,space:.
+set list
+set listchars=tab:→→,eol:¬,space:.
 " Hides buffers instead of closing them
 set hidden
 " ignore case when searching
@@ -171,10 +178,10 @@ set ignorecase
 " if the search string has an upper case letter in it, the search will be case sensitive
 set smartcase
 " do not wrap long lines by default
-" set nowrap
+set nowrap
 " set cursorline
 " always show signcolumns
-" set signcolumn=yes
+set signcolumn=yes
 " set showmatch
 " Yank and paste with the system clipboard
 set clipboard=unnamed
