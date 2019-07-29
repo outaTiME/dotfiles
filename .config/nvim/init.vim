@@ -15,9 +15,15 @@ Plug 'mhinz/vim-signify'
 " Plug 'RRethy/vim-illuminate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
-Plug 'svermeulen/vim-easyclip'
+" Plug 'svermeulen/vim-easyclip'
 
 call plug#end()
+
+" no arrow keys
+" noremap <Up> <NOP>
+" noremap <Down> <NOP>
+" noremap <Left> <NOP>
+" noremap <Right> <NOP>
 
 " NERD Tree {{
 " Show hidden files/directories
@@ -60,6 +66,12 @@ nnoremap <Leader>L :Lines<CR>
 "   \ 'spinner': ['fg', 'Label'],
 "   \ 'header':  ['fg', 'Comment']
 "   \ }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 " }}
 
 " COC {{
@@ -119,13 +131,13 @@ let g:ale_fixers = {
   \ 'javascript': ['eslint'],
   \ }
 let g:ale_fix_on_save = 1
-"let g:ale_lint_on_text_changed = 'always'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}
 
 " NERD Commenter {{
 let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
 " }}
 
 " Theme {{
@@ -142,7 +154,13 @@ let g:airline_theme='onedark'
 " Airline {{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "}}
+
+" EasyClip {{
+" nnoremap gm m
+" let g:EasyClipAutoFormat = 1
+" }}
 
 " Behavior {{
 " Enable line numbers
@@ -157,7 +175,7 @@ set tabstop=2       " number of visual spaces per TAB
 set softtabstop=2   " number of spaces in tab when editing
 set shiftwidth=2    " number of spaces to use for autoindent
 set expandtab       " tabs are space
-set autoindent
+" set autoindent
 set copyindent      " copy indent from the previous line<Plug>CocRefresh
 " No swap file
 set noswapfile
@@ -193,11 +211,12 @@ set clipboard=unnamed
 set scrolloff=5
 " Keep a minimum of 5 columns left of the cursor.
 set sidescrolloff=5
-set autoread
+" set autoread
 " Better display for messages
 " set cmdheight=2
 " You will have bad experience for diagnostic messages when it's default 4000.
 " set updatetime=300
 " don't give |ins-completion-menu| messages.
 " set shortmess+=c
+set visualbell
 " }}
