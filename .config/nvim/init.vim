@@ -3,7 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 " Plug 'tpope/vim-fugitive'
@@ -141,7 +141,10 @@ let g:NERDCompactSexyComs = 1
 " }}
 
 " Theme {{
-set termguicolors
+if (has("termguicolors"))
+  set termguicolors
+endif
+" let g:onedark_termcolors=256
 let g:onedark_terminal_italics = 1
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_color_overrides = {
