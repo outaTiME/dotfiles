@@ -3,7 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
-" Plug 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 " Plug 'tpope/vim-fugitive'
@@ -16,6 +16,8 @@ Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 " Plug 'svermeulen/vim-easyclip'
+Plug 'tpope/vim-sensible'
+Plug 'qpkorr/vim-bufkill'
 
 call plug#end()
 
@@ -141,9 +143,7 @@ let g:NERDCompactSexyComs = 1
 " }}
 
 " Theme {{
-if (has("termguicolors"))
-  set termguicolors
-endif
+set termguicolors
 " let g:onedark_termcolors=256
 let g:onedark_terminal_italics = 1
 let g:onedark_hide_endofbuffer = 1
@@ -163,6 +163,10 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 " EasyClip {{
 " nnoremap gm m
 " let g:EasyClipAutoFormat = 1
+" }}
+
+" Bufkill {{
+let g:BufKillOverrideCtrlCaret = 1
 " }}
 
 " Behavior {{
@@ -222,4 +226,5 @@ set sidescrolloff=5
 " don't give |ins-completion-menu| messages.
 " set shortmess+=c
 set visualbell
+" set colorcolumn=80
 " }}
