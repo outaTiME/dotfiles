@@ -24,7 +24,7 @@ antigen apply
 
 # Path
 # export PATH="$HOME/.yarn/bin:`yarn global bin`:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$PATH"
+export PATH="/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$PATH:$HOME/Code/nvim-osx64/bin"
 
 # Aliases
 if [ -f ~/.zsh/aliases.zsh ]; then

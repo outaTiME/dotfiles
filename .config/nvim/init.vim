@@ -1,31 +1,42 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'joshdick/onedark.vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
-Plug 'mxw/vim-jsx'
-Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-" Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'mhinz/vim-signify'
-" Plug 'RRethy/vim-illuminate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
-" Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-sensible'
 Plug 'qpkorr/vim-bufkill'
+Plug 'Yggdroot/indentLine'
+" Plug 'easymotion/vim-easymotion'
+" Plug 'mxw/vim-jsx'
+" Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-fugitive'
+" Plug 'RRethy/vim-illuminate'
+" Plug 'svermeulen/vim-easyclip'
+" Plug 'liuchengxu/vim-clap'
+" Plug 'tpope/vim-commentary'
 
 call plug#end()
 
+" Mappings {{
+let mapleader="\<Space>"
+" let mapleader=","
 " no arrow keys
 " noremap <Up> <NOP>
 " noremap <Down> <NOP>
 " noremap <Left> <NOP>
 " noremap <Right> <NOP>
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>Q :qa!<cr>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>wq :wq<CR>
+" }}
 
 " NERD Tree {{
 " Show hidden files/directories
@@ -37,22 +48,59 @@ let g:NERDTreeMinimalUI = 1
 " Hide certain files and directories from NERDTree
 let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]']
 " Mappings
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<cr>
+" map <C-n> :NERDTreeToggle<CR>
 " nnoremap <Leader>f :NERDTreeToggle<Enter>
 nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 " }}
 
 " FZF {{
-nnoremap <C-p> :Files<CR>
-nnoremap <C-t> :Files<CR>
-nnoremap <Leader>f :Rg<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>h :History<CR>
+" nnoremap <C-p> :Files<CR>
+" nnoremap <C-t> :Files<CR>
+" nnoremap <Leader>f :Rg<CR>
+" nnoremap <Leader>b :Buffers<CR>
+" nnoremap <Leader>h :History<CR>
 " nnoremap <C-r> :History<CR>
-nnoremap <Leader>t :BTags<CR>
-nnoremap <Leader>T :Tags<CR>
-nnoremap <Leader>l :BLines<CR>
-nnoremap <Leader>L :Lines<CR>
+" nnoremap <Leader>t :BTags<CR>
+" nnoremap <Leader>T :Tags<CR>
+" nnoremap <Leader>l :BLines<CR>
+" nnoremap <Leader>L :Lines<CR>
+
+" Terminal buffer options for fzf
+" autocmd! FileType fzf
+" autocmd  FileType fzf set noshowmode noruler nonu
+
+" if has('nvim') || has('gui_running')
+"   let $FZF_DEFAULT_OPTS .= ' --inline-info'
+" endif
+
+" All files
+" command! -nargs=? -complete=dir AF
+"   \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+"   \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+"   \ })))
+
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" https://github.com/junegunn/dotfiles/blob/master/vimrc#L1688
+" nnoremap <silent> <Leader><Leader> :Files<CR>
+nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+" nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>l        :BLines<CR>
+nnoremap <silent> <Leader>L        :Lines<CR>
+nnoremap <silent> <Leader>'        :Marks<CR>
+nnoremap <silent> <Leader>h        :History<CR>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+nnoremap <silent> <Leader>rg       :Rg<CR>
+nnoremap <silent> <Leader>RG       :Rg!<CR>
+
 " https://github.com/junegunn/fzf.vim#global-options
 " let g:fzf_colors = {
 "   \ 'fg':      ['fg', 'Normal'],
@@ -62,21 +110,25 @@ nnoremap <Leader>L :Lines<CR>
 "   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
 "   \ 'hl+':     ['fg', 'Statement'],
 "   \ 'info':    ['fg', 'PreProc'],
+"   \ 'border':  ['fg', 'Ignore'],
 "   \ 'prompt':  ['fg', 'Conditional'],
 "   \ 'pointer': ['fg', 'Exception'],
 "   \ 'marker':  ['fg', 'Keyword'],
 "   \ 'spinner': ['fg', 'Label'],
 "   \ 'header':  ['fg', 'Comment']
-"   \ }
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+"  \ }
+
 " }}
 
 " COC {{
+let g:coc_global_extensions = [
+  \ "coc-css",
+  \ "coc-eslint",
+  \ "coc-html",
+  \ "coc-json",
+  \ "coc-prettier",
+  \ "coc-tsserver",
+  \ ]
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
@@ -130,7 +182,7 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " ALE {{
 let g:ale_fixers = {
   \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \ 'javascript': ['eslint'],
+  \ 'javascript': ['prettier', 'eslint']
   \ }
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -155,9 +207,11 @@ let g:airline_theme='onedark'
 " }}
 
 " Airline {{
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline_extensions = ['branch', 'hunks', 'coc', 'tabline']
 "}}
 
 " EasyClip {{
@@ -166,12 +220,18 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 " }}
 
 " Bufkill {{
-let g:BufKillOverrideCtrlCaret = 1
+" let g:BufKillOverrideCtrlCaret = 1
+" }}
+
+" indentLine {{
+" let g:indentLine_color_term = 239
+" let g:indentLine_color_gui = '#616161'
 " }}
 
 " Behavior {{
 " Enable line numbers
 set number
+" set nonumber
 " Don't dispay mode in command line (airilne already shows it)
 set noshowmode
 " More natural split opening.
@@ -218,7 +278,7 @@ set clipboard=unnamed
 set scrolloff=5
 " Keep a minimum of 5 columns left of the cursor.
 set sidescrolloff=5
-" set autoread
+set autoread
 " Better display for messages
 " set cmdheight=2
 " You will have bad experience for diagnostic messages when it's default 4000.
@@ -227,4 +287,17 @@ set sidescrolloff=5
 " set shortmess+=c
 set visualbell
 " set colorcolumn=80
+set foldmethod=syntax "syntax highlighting items specify folds
+set foldcolumn=1 "defines 1 col at window left, to indicate folding
+" let javaScript_fold=1 "activate folding by JS syntax
+set foldlevelstart=99 "start file with all folds opened
+" set foldmethod=indent
+" set wildoptions=pum
+" set pumheight=15
+" set lazyredraw
 " }}
+
+" Automatic commands {{
+" https://github.com/junegunn/fzf/issues/453#issuecomment-513495518
+" au BufEnter * if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree' && winnr('$') > 1 | b# | exe "normal! \<c-w>\<c-w>" | :blast | endif
+"}}
