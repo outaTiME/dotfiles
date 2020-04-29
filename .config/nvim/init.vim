@@ -2,7 +2,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'w0rp/ale'
+" Plug 'othree/yajs.vim'
+" Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -14,7 +15,11 @@ Plug 'tpope/vim-sensible'
 Plug 'qpkorr/vim-bufkill'
 Plug 'Asheq/close-buffers.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'djoshea/vim-autoread'
+Plug 'ntpeters/vim-airline-colornum'
 " Plug 'easymotion/vim-easymotion'
+Plug 'kshenoy/vim-signature'
 " Plug 'mxw/vim-jsx'
 " Plug 'tpope/vim-surround'
 " Plug 'tpope/vim-fugitive'
@@ -22,6 +27,7 @@ Plug 'Yggdroot/indentLine'
 " Plug 'svermeulen/vim-easyclip'
 " Plug 'liuchengxu/vim-clap'
 " Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-obsession'
 
 call plug#end()
 
@@ -93,12 +99,31 @@ nnoremap <silent> <Leader>l        :BLines<CR>
 nnoremap <silent> <Leader>L        :Lines<CR>
 nnoremap <silent> <Leader>'        :Marks<CR>
 nnoremap <silent> <Leader>h        :History<CR>
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \   <bang>0)
+
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+  \   fzf#vim#with_preview(), <bang>0)
+
+" function! RipgrepFzf(query, fullscreen)
+"   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+"   let initial_command = printf(command_fmt, shellescape(a:query))
+"   let reload_command = printf(command_fmt, '{q}')
+"   let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+"   if a:fullscreen
+"     let options = fzf#vim#with_preview(options)
+"   endif
+"   call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+" endfunction
+
+" command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 nnoremap <silent> <Leader>rg       :Rg<CR>
 nnoremap <silent> <Leader>RG       :Rg!<CR>
 
@@ -129,6 +154,7 @@ let g:coc_global_extensions = [
   \ "coc-json",
   \ "coc-prettier",
   \ "coc-tsserver",
+  \ "coc-pairs",
   \ ]
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -185,7 +211,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 let g:ale_fixers = {
   \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ 'javascript': ['prettier', 'eslint'],
-  \ 'json': ['prettier']
+  \ 'json': ['prettier'],
+  \ 'less': ['prettier'],
   \ }
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -201,6 +228,7 @@ let g:NERDCompactSexyComs = 1
 set termguicolors
 " let g:onedark_termcolors=256
 let g:onedark_terminal_italics = 1
+let g:airline_colornum_reversed = 1
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_color_overrides = {
   \ "black": { "gui": "#000000", "cterm": "0", "cterm16": "0" }
@@ -262,7 +290,7 @@ set ignorecase
 set smartcase
 " do not wrap long lines by default
 set nowrap
-" set cursorline
+set cursorline
 " always show signcolumns
 set signcolumn=yes
 " set showmatch
@@ -299,6 +327,49 @@ set foldlevelstart=99 "start file with all folds opened
 " set pumheight=15
 " set lazyredraw
 " }}
+
+" https://github.com/lukas-reineke/dotfiles/blob/master/vim/init.vim#L144
+" Fold {{{
+
+" set foldclose=all
+" set nofoldenable
+" set foldlevel=2
+" set foldmethod=indent
+" set foldnestmax=2
+" set foldopen=all
+" set foldminlines=0
+
+" }}}
+
+" Chars {{{
+
+set list
+set listchars=eol:↴
+set listchars+=tab:>-
+set listchars+=trail:•
+set listchars+=extends:❯
+set listchars+=precedes:❮
+set listchars+=nbsp:_
+set listchars+=space:⋅
+set showbreak=↳⋅
+set conceallevel=2
+set concealcursor=n
+let g:indentLine_char = '│'
+let g:indentLine_first_char = g:indentLine_char
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_color_gui = onedark#GetColors().cursor_grey.gui
+let g:indentLine_bgcolor_gui = 'NONE'
+let g:indentLine_setConceal = 0
+let g:indentLine_fileTypeExclude = ['help', 'defx', 'vimwiki']
+let g:indentLine_autoResetWidth = 0
+let g:indent_blankline_space_char = ' '
+
+" augroup IndentBlankline
+"     autocmd!
+"     autocmd User ALEFixPost IndentBlanklineRefresh
+" augroup END
+
+" }}}
 
 " Automatic commands {{
 " https://github.com/junegunn/fzf/issues/453#issuecomment-513495518
