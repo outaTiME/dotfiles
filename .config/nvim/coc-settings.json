@@ -1,7 +1,15 @@
 {
+  // "diagnostic.enableSign": false,
+  "diagnostic.warningSign": ">>",
   "eslint.autoFixOnSave": true,
-  "eslint.filetypes": [ "javascript" ],
-  "coc.preferences.formatOnSaveFiletypes": [ "javascript", "json", "css", "less", "html" ],
+  "eslint.filetypes": ["javascript"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "json",
+    "css",
+    "less",
+    "html"
+  ],
   "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true,
   "list.normalMappings": {
@@ -18,5 +26,6 @@
     "<Down>": "prompt:next",
     "<Up>": "prompt:previous",
     "<C-v>": "prompt:paste"
-  }
+  },
+  "cursors.cancelKey": "<C-c>"
 }
