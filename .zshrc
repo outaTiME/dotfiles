@@ -1,5 +1,3 @@
-export GPG_TTY=$(tty)
-
 autoload -U promptinit; promptinit
 prompt pure
 
