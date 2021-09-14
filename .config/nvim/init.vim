@@ -1,6 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'joshdick/onedark.vim'
+" Plug 'crusoexia/vim-monokai'
 Plug 'sheerun/vim-polyglot'
 " Plug 'othree/yajs.vim'
 " Plug 'w0rp/ale'
@@ -29,6 +30,7 @@ Plug 'kshenoy/vim-signature'
 " Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-obsession'
 Plug 'sickill/vim-pasta'
+Plug 'psliwka/vim-smoothie'
 
 call plug#end()
 

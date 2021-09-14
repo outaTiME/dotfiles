@@ -1,3 +1,6 @@
+autoload -U promptinit; promptinit
+prompt pure
+
 source /usr/local/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -7,8 +10,8 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle command-not-found
 antigen bundle akoenig/gulp-autocompletion-zsh
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+# antigen bundle mafredri/zsh-async
+# antigen bundle sindresorhus/pure
 antigen bundle sublime
 antigen bundle yarn
 antigen bundle common-aliases
@@ -27,7 +30,8 @@ export FLUTTER_SDK="/Users/outaTiME/Code/flutter"
 
 # Path
 # export PATH="$HOME/.yarn/bin:`yarn global bin`:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/usr/local/sbin:/usr/local/opt/node@12/bin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/opt/node@14/bin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
+# export PATH="/usr/local/sbin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
 
 # Aliases
 if [ -f ~/.zsh/aliases.zsh ]; then
@@ -56,3 +60,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   --color fg:255,bg:236,hl:84,fg+:255,bg+:236,hl+:215
 #   --color info:141,prompt:84,spinner:212,pointer:212,marker:212
 # '
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
