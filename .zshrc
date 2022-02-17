@@ -1,7 +1,10 @@
-autoload -U promptinit; promptinit
-prompt pure
+# https://github.com/sindresorhus/pure/issues/584#issuecomment-989054653
+# fpath+=/opt/homebrew/share/zsh/site-functions
 
-source /usr/local/share/antigen/antigen.zsh
+# autoload -U promptinit; promptinit
+# prompt pure
+
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -10,8 +13,6 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle command-not-found
 antigen bundle akoenig/gulp-autocompletion-zsh
-# antigen bundle mafredri/zsh-async
-# antigen bundle sindresorhus/pure
 antigen bundle sublime
 antigen bundle yarn
 antigen bundle common-aliases
@@ -61,5 +62,11 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   --color info:141,prompt:84,spinner:212,pointer:212,marker:212
 # '
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+eval "$(starship init zsh)"
