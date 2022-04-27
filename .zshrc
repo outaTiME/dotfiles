@@ -31,7 +31,7 @@ export FLUTTER_SDK="/Users/outaTiME/Code/flutter"
 
 # Path
 # export PATH="$HOME/.yarn/bin:`yarn global bin`:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/usr/local/sbin:/usr/local/opt/node@14/bin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/opt/node@14/bin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
 # export PATH="/usr/local/sbin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
 
 # Aliases
