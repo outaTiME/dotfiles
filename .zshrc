@@ -26,12 +26,18 @@ antigen bundle zsh-users/zsh-history-substring-search
 # Tell Antigen that you're done.
 antigen apply
 
-export ANDROID_SDK="/Users/outaTiME/Library/Android/sdk"
+export ANDROID_HOME="/Users/outaTiME/Library/Android/sdk"
+# export ANDROID_SDK="/Users/outaTiME/Library/Android/sdk"
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export FLUTTER_SDK="/Users/outaTiME/Code/flutter"
+
+export LANG=en_US.UTF-8
 
 # Path
 # export PATH="$HOME/.yarn/bin:`yarn global bin`:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/node@14/bin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/node@14/bin:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
 # export PATH="/usr/local/sbin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
 
 # Aliases
