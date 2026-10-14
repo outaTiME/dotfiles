@@ -37,7 +37,7 @@ export LANG=en_US.UTF-8
 
 # Path
 # export PATH="$HOME/.yarn/bin:`yarn global bin`:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/node@14/bin:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/node@14/bin:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$HOME/.local/bin:$PATH"
 # export PATH="/usr/local/sbin:$ANDROID_SDK/platform-tools:/Applications/Genymotion.app/Contents/MacOS/tools:$HOME/.fastlane/bin:$FLUTTER_SDK/bin:$PATH"
 
 # Aliases
@@ -76,6 +76,18 @@ export NVM_DIR="$HOME/.nvm"
 
 # fnm
 export PATH="/Users/outaTiME/Library/Application Support/fnm:$PATH"
-eval "`fnm env`"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 eval "$(starship init zsh)"
+
+
+# Added by Antigravity
+export PATH="/Users/outaTiME/.antigravity/antigravity/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/outaTiME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
